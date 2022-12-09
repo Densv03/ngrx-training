@@ -6,7 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from "./app.effects";
-import { environment } from "../environments/environment";
+import { reducers } from "./reducers";
 
 @NgModule({
   declarations: [
@@ -14,8 +14,8 @@ import { environment } from "../environments/environment";
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({}, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreModule.forRoot(reducers, {}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([AppEffects]),
   ],
   providers: [],

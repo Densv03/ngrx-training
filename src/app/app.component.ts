@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Store } from "@ngrx/store";
+import { countSelector, decrement, increment, reset } from "./reducers/counter";
+import { map, Observable } from "rxjs";
 
 @Component({
     selector: 'app-root',
@@ -6,25 +9,26 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    public counter = 0;
     public updatedAt?: number;
 
-    get isNegative(): boolean {
-        return this.counter <= 0;
+    public count$: Observable<number> = this.store.select(countSelector);
+    public isNegative$ = this.count$.pipe(map(count => count <= 0));
+
+    constructor(private store: Store) {
     }
 
     public increment(): void {
         this.updatedAt = Date.now();
-        this.counter++;
+        this.store.dispatch(increment());
     }
 
     public decrement(): void {
         this.updatedAt = Date.now();
-        this.counter--;
+        this.store.dispatch(decrement());
     }
 
     public reset(): void {
         this.updatedAt = Date.now();
-        this.counter = 0;
+        this.store.dispatch(reset());
     }
 }
