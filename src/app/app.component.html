@@ -4,4 +4,4 @@
 
 <p class="fz-60">Counter = {{ count$ | async }}</p>
 
-<p *ngIf="updatedAt" class="fz-60">Updated {{updatedAt | date:"HH:mm:ss dd/MM/yyyy"}}</p>
+<p *ngIf="updatedAt$ | async" class="fz-60">Updated {{updatedAt$ | async | date:"HH:mm:ss dd/MM/yyyy"}}</p>
