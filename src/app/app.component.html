@@ -1,7 +1,11 @@
-<button class="fz-60 m-20 p-50" (click)="increment()">+1</button>
-<button class="fz-60 m-20 p-50" (click)="decrement()" [disabled]="isNegative$ | async">-1</button>
-<button class="fz-60 m-20 p-50" (click)="reset()" [disabled]="isNegative$ | async">=0</button>
-
-<p class="fz-60">Counter = {{ count$ | async }}</p>
-
-<p *ngIf="updatedAt$ | async" class="fz-60">Updated {{updatedAt$ | async | date:"HH:mm:ss dd/MM/yyyy"}}</p>
+<form *ngIf="todoList$ | async as todoList" [formGroup]="form">
+    <ul>
+        <li *ngFor="let todoItem of todoList">
+            <input type="checkbox" [checked]="todoItem.isCompleted">
+            {{todoItem.name}}
+            <button (click)="deleteTask(todoItem.id)">Delete</button>
+        </li>
+        <input type="text" formControlName="newTask">
+        <button (click)="addTask()">Add task</button>
+    </ul>
+</form>

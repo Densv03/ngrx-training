@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { countSelector, decrement, increment, reset, updatedAtSelector } from "./reducers/counter";
-import { map, Observable } from "rxjs";
+import { createTask, deleteTask, TodoItem, todoListSelector } from "./reducers/todo";
+import { Observable } from "rxjs";
+import { FormControl, FormGroup } from "@angular/forms";
 
 @Component({
     selector: 'app-root',
@@ -9,22 +10,21 @@ import { map, Observable } from "rxjs";
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    public count$: Observable<number> = this.store.select(countSelector);
-    public isNegative$ = this.count$.pipe(map(count => count <= 0));
-    public updatedAt$ = this.store.select(updatedAtSelector);
+    public todoList$: Observable<TodoItem[]>;
+    public form: FormGroup = new FormGroup<{newTask: FormControl}>({
+        newTask: new FormControl(''),
+    });
 
     constructor(private store: Store) {
+        this.todoList$ = this.store.select(todoListSelector);
     }
 
-    public increment(): void {
-        this.store.dispatch(increment());
+    public deleteTask(id: number): void {
+        this.store.dispatch(deleteTask({id}));
     }
 
-    public decrement(): void {
-        this.store.dispatch(decrement());
-    }
-
-    public reset(): void {
-        this.store.dispatch(reset());
+    public addTask(): void {
+        this.store.dispatch(createTask({name: this.form.value.newTask}));
+        this.form.reset()
     }
 }
