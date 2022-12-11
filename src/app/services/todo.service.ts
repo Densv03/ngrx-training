@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
-import { TodoItem } from "./store/todo.state";
+import { TodoItem } from "../store/todo.state";
 
 const initialState: TodoItem[] = [
     {
@@ -41,6 +41,8 @@ export class TodoService {
         return this.todoList$;
     }
 
-    constructor() {
+    public deleteTask$(id: number): Observable<TodoItem[]> {
+        this.todosSubject.next(this.todosSubject.getValue().filter(item => item.id !== id));
+        return this.todoList$;
     }
 }
