@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { createTask, deleteTask, TodoItem, todoListSelector } from "./reducers/todo";
 import { Observable } from "rxjs";
 import { FormControl, FormGroup } from "@angular/forms";
+import { createTask, deleteTask, getTasks } from "./store/todo.actions";
+import { TodoItem } from "./store/todo.state";
+import { todoListSelector } from "./store/todo.selectors";
 
 @Component({
     selector: 'app-root',
@@ -17,6 +19,7 @@ export class AppComponent {
 
     constructor(private store: Store) {
         this.todoList$ = this.store.select(todoListSelector);
+        this.store.dispatch(getTasks());
     }
 
     public deleteTask(id: number): void {
@@ -25,6 +28,6 @@ export class AppComponent {
 
     public addTask(): void {
         this.store.dispatch(createTask({name: this.form.value.newTask}));
-        this.form.reset()
+        this.form.reset();
     }
 }

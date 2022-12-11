@@ -1,6 +1,8 @@
 import { ActionReducerMap, MetaReducer } from "@ngrx/store";
 import { environment } from "../../environments/environment";
-import { TODO_KEY, todoReducer, TodoState } from "./todo";
+import { TODO_KEY } from "./todo";
+import { todoReducer } from "../store/todo.reducers";
+import { TodoState } from "../store/todo.state";
 
 export interface State {
     [TODO_KEY]: TodoState,
