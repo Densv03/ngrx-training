@@ -9,10 +9,14 @@ import { AppEffects } from "./app.effects";
 import { reducers } from "./reducers";
 import { ReactiveFormsModule } from "@angular/forms";
 import { TodoEffects } from "./store/todo.effects";
+import { AppRoutingModule } from "./app-routing.module";
+import { CommonModule } from "@angular/common";
+import { TaskDetailsComponent } from './task-details/task-details.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TaskDetailsComponent
   ],
     imports: [
         BrowserModule,
@@ -20,6 +24,8 @@ import { TodoEffects } from "./store/todo.effects";
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
         EffectsModule.forRoot([AppEffects, TodoEffects]),
         ReactiveFormsModule,
+        AppRoutingModule,
+        CommonModule
     ],
   providers: [],
   bootstrap: [AppComponent]

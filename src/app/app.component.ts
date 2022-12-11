@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { createTask, deleteTask, getTasks } from "./store/todo.actions";
 import { TodoItem } from "./store/todo.state";
 import { todoListSelector } from "./store/todo.selectors";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-root',
@@ -13,11 +14,12 @@ import { todoListSelector } from "./store/todo.selectors";
 })
 export class AppComponent {
     public todoList$: Observable<TodoItem[]>;
-    public form: FormGroup = new FormGroup<{newTask: FormControl}>({
+    public form: FormGroup = new FormGroup<{ newTask: FormControl }>({
         newTask: new FormControl(''),
     });
 
-    constructor(private store: Store) {
+    constructor(private store: Store,
+                private router: Router) {
         this.todoList$ = this.store.select(todoListSelector);
         this.store.dispatch(getTasks());
     }
@@ -29,5 +31,9 @@ export class AppComponent {
     public addTask(): void {
         this.store.dispatch(createTask({name: this.form.value.newTask}));
         this.form.reset();
+    }
+
+    public redirect(id: number) {
+        this.router.navigate(['task', id]);
     }
 }

@@ -1,6 +1,6 @@
 <form *ngIf="todoList$ | async as todoList" [formGroup]="form">
     <ul>
-        <li *ngFor="let todoItem of todoList">
+        <li *ngFor="let todoItem of todoList" (click)="redirect(todoItem.id)">
             <input type="checkbox" [checked]="todoItem.isCompleted">
             {{todoItem.name}}
             <button (click)="deleteTask(todoItem.id)">Delete</button>
@@ -9,3 +9,5 @@
         <button (click)="addTask()">Add task</button>
     </ul>
 </form>
+
+<router-outlet></router-outlet>

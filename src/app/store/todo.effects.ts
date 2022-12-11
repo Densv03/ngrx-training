@@ -4,9 +4,9 @@ import {
     createTask,
     createTaskSuccess,
     deleteTask,
-    deleteTaskSuccess,
+    deleteTaskSuccess, getActiveTask, getActiveTaskSuccess,
     getTasks,
-    getTasksSuccess
+    getTasksSuccess, updateActiveTask, updateActiveTaskSuccess
 } from "./todo.actions";
 import { map, mergeMap } from "rxjs";
 import { TodoService } from "../services/todo.service";
@@ -48,5 +48,25 @@ export class TodoEffects {
                 );
             }),
         );
+    });
+    public activeTodo$ = createEffect(() => {
+       return this.actions$.pipe(
+           ofType(getActiveTask),
+           mergeMap(() => {
+               return this.todoService.activeTodo$.pipe(
+                   map(activeTodo => getActiveTaskSuccess({activeTodo})),
+               );
+           }),
+       );
+    });
+    public updateActiveTodo$ = createEffect(() => {
+       return this.actions$.pipe(
+           ofType(updateActiveTask),
+           mergeMap(action => {
+               return this.todoService.findTodoById$(action.id).pipe(
+                   map(activeTodo => updateActiveTaskSuccess({activeTodo}))
+               )
+           })
+       )
     });
 }

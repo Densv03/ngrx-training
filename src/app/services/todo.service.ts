@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { TodoItem } from "../store/todo.state";
 
 const initialState: TodoItem[] = [
@@ -27,8 +27,19 @@ export class TodoService {
 
     private todosSubject: BehaviorSubject<TodoItem[]> = new BehaviorSubject<TodoItem[]>(initialState);
 
+    private activeTodoSubject: BehaviorSubject<TodoItem | null> = new BehaviorSubject<TodoItem | null>(null);
+
     public get todoList$(): Observable<TodoItem[]> {
         return this.todosSubject.asObservable();
+    }
+
+    public get activeTodo$(): Observable<TodoItem | null> {
+        return this.activeTodoSubject.asObservable();
+    }
+
+    public findTodoById$(id: number): Observable<TodoItem | null> {
+        const foundTodo = this.todosSubject.getValue().find(todo => todo.id === id);
+        return foundTodo ? of(foundTodo) : of(null);
     }
 
     public createTask$(name: string): Observable<TodoItem[]> {

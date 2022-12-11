@@ -6,8 +6,10 @@ export interface TodoItem {
 
 export interface TodoState {
     todos: TodoItem[];
+    activeTodo: TodoItem | null;
 }
 
 export const initialState: TodoState = {
     todos: [],
+    activeTodo: null,
 };
