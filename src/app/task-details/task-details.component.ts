@@ -38,8 +38,6 @@ export class TaskDetailsComponent implements OnInit {
     }
 
     public saveChanges(todoItem: { name: string, isCompleted: boolean }, id: number): void {
-        // console.log(name);
-        // console.log(activeTodo)
         this.store.dispatch(updateActiveTask({
             activeTodo: {
                 ...todoItem,
