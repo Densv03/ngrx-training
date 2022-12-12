@@ -1,7 +1,7 @@
 <form *ngIf="todoList$ | async as todoList" [formGroup]="form">
     <ul>
         <li *ngFor="let todoItem of todoList" (click)="redirect(todoItem.id)">
-            <input type="checkbox" [checked]="todoItem.isCompleted">
+            <input type="checkbox" [checked]="todoItem.isCompleted" (click)="updateTodoItem(todoItem)">
             {{todoItem.name}}
             <button (click)="deleteTask(todoItem.id)">Delete</button>
         </li>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { FormControl, FormGroup } from "@angular/forms";
-import { createTask, deleteTask, getTasks } from "./store/todo.actions";
+import { createTask, deleteTask, getTasks, updateActiveTask } from "./store/todo.actions";
 import { TodoItem } from "./store/todo.state";
 import { todoListSelector } from "./store/todo.selectors";
 import { Router } from "@angular/router";
@@ -29,11 +29,22 @@ export class AppComponent {
     }
 
     public addTask(): void {
+        if (!this.form.value.newTask)
+            return;
         this.store.dispatch(createTask({name: this.form.value.newTask}));
         this.form.reset();
     }
 
     public redirect(id: number) {
         this.router.navigate(['task', id]);
+    }
+
+    public updateTodoItem(todoItem: TodoItem): void {
+        this.store.dispatch(updateActiveTask({
+            activeTodo: {
+                ...todoItem,
+                isCompleted: !todoItem.isCompleted,
+            }
+        }));
     }
 }
