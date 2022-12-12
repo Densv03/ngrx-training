@@ -44,9 +44,10 @@ export class TaskDetailsComponent implements OnInit {
                 id,
             }
         }));
+        this.store.dispatch(updateActiveTask({activeTodo: null}));
     }
 
     public cancel(): void {
-
+        this.store.dispatch(updateActiveTask({activeTodo: null}));
     }
 }

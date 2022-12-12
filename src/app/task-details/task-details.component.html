@@ -1,5 +1,5 @@
 <form *ngIf="activeTodo$ | async as activeTodo" [formGroup]="form">
-    <input type="checkbox" [checked]="activeTodo.isCompleted">
+    <input type="checkbox" formControlName="isCompleted" [checked]="activeTodo.isCompleted">
     <input type="text" formControlName="name">
     <button (click)="saveChanges(form.value, activeTodo.id)">Save changes</button>
     <button (click)="cancel()">Cancel</button>

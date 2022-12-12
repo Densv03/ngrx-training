@@ -19,8 +19,6 @@ const DELETE_TASK_SUCCESS = '[TODO] Delete task success';
 export const createTask = createAction(CREATE_TASK, props<{ name: string }>());
 export const createTaskSuccess = createAction(CREATE_TASK_SUCCESS, props<{ todos: TodoItem[] }>());
 
-// export const updateTask = createAction('[TODO] Update task');
-
 export const deleteTask = createAction(DELETE_TASK, props<{ id: number }>());
 export const deleteTaskSuccess = createAction(DELETE_TASK_SUCCESS, props<{ todos: TodoItem[] }>());
 
