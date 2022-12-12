@@ -50,23 +50,33 @@ export class TodoEffects {
         );
     });
     public activeTodo$ = createEffect(() => {
-       return this.actions$.pipe(
-           ofType(getActiveTask),
-           mergeMap(() => {
-               return this.todoService.activeTodo$.pipe(
-                   map(activeTodo => getActiveTaskSuccess({activeTodo})),
-               );
-           }),
-       );
+        return this.actions$.pipe(
+            ofType(getActiveTask),
+            mergeMap(() => {
+                return this.todoService.activeTodo$.pipe(
+                    map(activeTodo => getActiveTaskSuccess({activeTodo})),
+                );
+            }),
+        );
     });
     public updateActiveTodo$ = createEffect(() => {
-       return this.actions$.pipe(
-           ofType(updateActiveTask),
-           mergeMap(action => {
-               return this.todoService.findTodoById$(action.id).pipe(
-                   map(activeTodo => updateActiveTaskSuccess({activeTodo}))
-               )
-           })
-       )
+        return this.actions$.pipe(
+            ofType(updateActiveTask),
+            mergeMap(action => {
+                return this.todoService.updateActiveTask$(action.activeTodo).pipe(
+                    map(activeTodo => updateActiveTaskSuccess({activeTodo})),
+                )
+            })
+        )
     });
+    public getActiveTodo$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(getActiveTask),
+            mergeMap((action) => {
+                return this.todoService.findTodoById$(action.id).pipe(
+                    map(activeTodo => getActiveTaskSuccess({activeTodo})),
+                )
+            })
+        )
+    })
 }

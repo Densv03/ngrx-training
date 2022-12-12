@@ -56,4 +56,15 @@ export class TodoService {
         this.todosSubject.next(this.todosSubject.getValue().filter(item => item.id !== id));
         return this.todoList$;
     }
+
+    public updateActiveTask$(activeTodo: TodoItem | null): Observable<TodoItem | null> {
+        this.activeTodoSubject.next(activeTodo);
+        const tasksArr = this.todosSubject.getValue();
+        const index = tasksArr.findIndex(todo => todo.id === activeTodo?.id);
+        if (activeTodo)
+            tasksArr[index] = activeTodo;
+        console.log(tasksArr)
+        this.todosSubject.next(tasksArr);
+        return this.activeTodo$;
+    }
 }
