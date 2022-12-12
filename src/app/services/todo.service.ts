@@ -59,11 +59,7 @@ export class TodoService {
 
     public updateActiveTask$(activeTodo: TodoItem | null): Observable<TodoItem | null> {
         this.activeTodoSubject.next(activeTodo);
-        const tasksArr = this.todosSubject.getValue();
-        const index = tasksArr.findIndex(todo => todo.id === activeTodo?.id);
-        if (activeTodo)
-            tasksArr[index] = activeTodo;
-        console.log(tasksArr)
+        const tasksArr = this.todosSubject.getValue().map(todo => todo.id === activeTodo?.id ? activeTodo : todo);
         this.todosSubject.next(tasksArr);
         return this.activeTodo$;
     }
