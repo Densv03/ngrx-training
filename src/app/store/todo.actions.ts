@@ -27,7 +27,7 @@ export const deleteTaskSuccess = createAction(DELETE_TASK_SUCCESS, props<{ todos
 export const getActiveTask = createAction(GET_ACTIVE_TASK, props<{ id: number }>());
 export const getActiveTaskSuccess = createAction(GET_ACTIVE_TASK_SUCCESS, props<{ activeTodo: TodoItem | null }>());
 
-export const updateActiveTask = createAction(UPDATE_ACTIVE_TASK, props<{ id: number }>());
+export const updateActiveTask = createAction(UPDATE_ACTIVE_TASK, props<{ activeTodo: TodoItem | null }>());
 export const updateActiveTaskSuccess = createAction(UPDATE_ACTIVE_TASK_SUCCESS, props<{ activeTodo: TodoItem | null }>());
 
 export const getTasks = createAction(GET_TASKS);

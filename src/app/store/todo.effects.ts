@@ -63,10 +63,20 @@ export class TodoEffects {
        return this.actions$.pipe(
            ofType(updateActiveTask),
            mergeMap(action => {
-               return this.todoService.findTodoById$(action.id).pipe(
-                   map(activeTodo => updateActiveTaskSuccess({activeTodo}))
+               return this.todoService.updateActiveTask$(action.activeTodo).pipe(
+                   map(activeTodo => updateActiveTaskSuccess({activeTodo})),
                )
            })
        )
     });
+    public getActiveTodo$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(getActiveTask),
+            mergeMap((action) => {
+                return this.todoService.findTodoById$(action.id).pipe(
+                    map(activeTodo => getActiveTaskSuccess({activeTodo})),
+                )
+            })
+        )
+    })
 }

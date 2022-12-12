@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { initialState } from "./todo.state";
-import { createTaskSuccess, deleteTask, getTasksSuccess, updateActiveTaskSuccess } from "./todo.actions";
+import { createTaskSuccess, deleteTask, getActiveTaskSuccess, getTasksSuccess } from "./todo.actions";
 
 export const todoReducer = createReducer(initialState,
     on(deleteTask, (state, {id}) => {
@@ -9,5 +9,5 @@ export const todoReducer = createReducer(initialState,
     }),
     on(getTasksSuccess, (state, {todos}) => ({...state, todos})),
     on(createTaskSuccess, (state, {todos}) => ({...state, todos})),
-    on(updateActiveTaskSuccess, (state, {activeTodo}) => ({...state, activeTodo})),
+    on(getActiveTaskSuccess, (state, {activeTodo}) => ({...state, activeTodo})),
 )
