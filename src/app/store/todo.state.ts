@@ -1,15 +1,15 @@
 export interface TodoItem {
-    name: string;
-    isCompleted: boolean;
-    id: number;
+  name: string;
+  isCompleted: boolean;
+  id: number;
 }
 
 export interface TodoState {
-    todos: TodoItem[];
-    activeTodo: TodoItem | null;
+  todos: TodoItem[];
+  activeTodo: TodoItem | null;
 }
 
 export const initialState: TodoState = {
-    todos: [],
-    activeTodo: null,
+  todos: [],
+  activeTodo: null,
 };

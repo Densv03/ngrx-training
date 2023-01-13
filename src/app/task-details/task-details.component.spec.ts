@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TaskDetailsComponent } from './task-details.component';
+import { provideMockStore } from '@ngrx/store/testing';
+import { initialState } from '../store/todo.state';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('TaskDetailsComponent', () => {
   let component: TaskDetailsComponent;
@@ -8,9 +11,10 @@ describe('TaskDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TaskDetailsComponent ]
-    })
-    .compileComponents();
+      declarations: [TaskDetailsComponent],
+      providers: [provideMockStore({ initialState })],
+      imports: [RouterTestingModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaskDetailsComponent);
     component = fixture.componentInstance;
